@@ -14,6 +14,10 @@
   --white: #fff;
   --navy: #091522;
   --shadow: 0 12px 35px rgba(22, 28, 35, 0.06);
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
   * {
     box-sizing: border-box;
   }
@@ -2003,6 +2007,96 @@
   }
   .not-found .btn {
     margin-top: 20px;
+  }
+  /* Shared luxury radius system */
+  .btn,
+  .chip,
+  .select-button,
+  .more-button,
+  .table-action,
+  .settings-tab,
+  .mobile-menu {
+    border-radius: var(--radius-md);
+  }
+  input,
+  select,
+  textarea,
+  .booking-strip,
+  .booking-side,
+  .availability-box,
+  .form-card,
+  .auth-form,
+  .settings-form {
+    border-radius: var(--radius-md);
+  }
+  .room-card,
+  .feature-card,
+  .amenity-card,
+  .home-amenity-card,
+  .stat-card,
+  .panel,
+  .table-wrap,
+  .room-admin-card,
+  .empty-state,
+  .settings-panel,
+  .profile-panel,
+  .home-contact-card {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .detail-info,
+  .dashboard-charts > *,
+  .dashboard-bottom > *,
+  .auth-photo,
+  .auth-page > *,
+  .not-found {
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+  .room-image,
+  .room-image img,
+  .feature-card img,
+  .feature-banner,
+  .feature-banner > img,
+  .detail-image,
+  .detail-thumbs,
+  .detail-thumbs img,
+  .booking-side img,
+  .gallery-item,
+  .gallery-item img,
+  .home-gallery-item,
+  .home-gallery-item img,
+  .about-home-image,
+  .about-home-image img,
+  .home-preview-band-image,
+  .home-preview-band-image img,
+  .experience-photo,
+  .experience-photo img,
+  .auth-photo {
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+  .room-card .room-image,
+  .feature-card img,
+  .gallery-item,
+  .home-gallery-item {
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+  .stat-icon,
+  .help-icon,
+  .icon-button,
+  .avatar,
+  .profile-avatar,
+  .about-home-check,
+  .home-amenity-icon,
+  .donut-center {
+    border-radius: 50%;
+  }
+  .public-nav,
+  .public-footer,
+  .admin-sidebar,
+  .admin-topbar {
+    border-radius: 0;
   }
   @media (max-width: 1100px) {
     .public-nav {
