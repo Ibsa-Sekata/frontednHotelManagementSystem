@@ -1,0 +1,185 @@
+{
+  "planHash": "766179991a6d6638e70256b155517ee5ef231d81e333f7eda9fe669e649e19ec",
+  "phase": "standalone",
+  "recordedAtUtc": "2026-10-28T19:39:39.6933351Z",
+  "retryCount": 0,
+  "resetBaseline": false,
+  "complete": true,
+  "result": {
+    "setupSucceeded": true,
+    "setupDurationMs": 0,
+    "setupFailureOutput": null,
+    "assertions": [
+      {
+        "name": "production-build",
+        "kind": "process",
+        "verificationMethod": "exit-code",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "npm warn Unknown env config \u0022scripts-prepend-node-path\u0022. This will stop working in the next major version of npm.\r\n\r\n\u003E royal-palace-hotel-frontend@1.0.0 build\r\n\u003E vite build\r\n\r\n\u001B[36mvite v6.4.5 \u001B[32mbuilding for production...\u001B[36m\u001B[39m\r\ntransforming...\r\n\u001B[32m\u2713\u001B[39m 2231 modules transformed.\r\nrendering chunks...\r\ncomputing gzip size...\r\n\u001B[2mdist/\u001B[22m\u001B[32mindex.html                 \u001B[39m\u001B[1m\u001B[2m  0.56 kB\u001B[22m\u001B[1m\u001B[22m\u001B[2m \u2502 gzip:   0.34 kB\u001B[22m\r\n\u001B[2mdist/\u001B[22m\u001B[35massets/index-C8laLyR7.css  \u001B[39m\u001B[1m\u001B[2m 35.87 kB\u001B[22m\u001B[1m\u001B[22m\u001B[2m \u2502 gzip:   7.85 kB\u001B[22m\r\n\u001B[2mdist/\u001B[22m\u001B[36massets/index-CFXXeKkF.js   \u001B[39m\u001B[1m\u001B[33m678.34 kB\u001B[39m\u001B[22m\u001B[2m \u2502 gzip: 188.23 kB\u001B[22m\r\n\u001B[33m\r\n(!) Some chunks are larger than 500 kB after minification. Consider:\r\n- Using dynamic import() to code-split the application\r\n- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks\r\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\u001B[39m\r\n\u001B[32m\u2713 built in 8.17s\u001B[39m\r\n",
+        "durationMs": 10534
+      },
+      {
+        "name": "dev-server-serves-home",
+        "kind": "http-probe",
+        "verificationMethod": "http-status",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": null,
+        "outputSample": "HTTP 200\n\u003C!doctype html\u003E\n\u003Chtml lang=\u0022en\u0022\u003E\n  \u003Chead\u003E\n    \u003Cscript type=\u0022module\u0022\u003Eimport { injectIntoGlobalHook } from \u0022/@react-refresh\u0022;\ninjectIntoGlobalHook(window);\nwindow.$RefreshReg$ = () =\u003E {};\nwindow.$RefreshSig$ = () =\u003E (type) =\u003E type;\u003C/script\u003E\n\n    \u003Cscript type=\u0022module\u0022 src=\u0022/@vite/client\u0022\u003E\u003C/script\u003E\n\n    \u003Cmeta charset=\u0022UTF-8\u0022 /\u003E\n    \u003Cmeta name=\u0022viewport\u0022 content=\u0022width=device-width, initial-scale=1.0\u0022 /\u003E\n    \u003Cmeta name=\u0022theme-color\u0022 content=\u0022#07111d\u0022 /\u003E\n    \u003Cmeta name=\u0022description\u0022 content=\u0022Royal Palace Hotel \u2014 luxury stays, dining and hospitality management.\u0022 /\u003E\n    \u003Ctitle\u003ERoyal Palace Hotel\u003C/title\u003E\n  \u003C/head\u003E\n  \u003Cbody\u003E\u003Cdiv id=\u0022root\u0022\u003E\u003C/div\u003E\u003Cscript type=\u0022module\u0022 src=\u0022/src/main.jsx?t=1793216316522\u0022\u003E\u003C/script\u003E\u003C/body\u003E\n\u003C/html\u003E\n",
+        "durationMs": 25
+      },
+      {
+        "name": "about-route-serves",
+        "kind": "http-probe",
+        "verificationMethod": "http-status",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": null,
+        "outputSample": "HTTP 200\n\u003C!doctype html\u003E\n\u003Chtml lang=\u0022en\u0022\u003E\n  \u003Chead\u003E\n    \u003Cscript type=\u0022module\u0022\u003Eimport { injectIntoGlobalHook } from \u0022/@react-refresh\u0022;\ninjectIntoGlobalHook(window);\nwindow.$RefreshReg$ = () =\u003E {};\nwindow.$RefreshSig$ = () =\u003E (type) =\u003E type;\u003C/script\u003E\n\n    \u003Cscript type=\u0022module\u0022 src=\u0022/@vite/client\u0022\u003E\u003C/script\u003E\n\n    \u003Cmeta charset=\u0022UTF-8\u0022 /\u003E\n    \u003Cmeta name=\u0022viewport\u0022 content=\u0022width=device-width, initial-scale=1.0\u0022 /\u003E\n    \u003Cmeta name=\u0022theme-color\u0022 content=\u0022#07111d\u0022 /\u003E\n    \u003Cmeta name=\u0022description\u0022 content=\u0022Royal Palace Hotel \u2014 luxury stays, dining and hospitality management.\u0022 /\u003E\n    \u003Ctitle\u003ERoyal Palace Hotel\u003C/title\u003E\n  \u003C/head\u003E\n  \u003Cbody\u003E\u003Cdiv id=\u0022root\u0022\u003E\u003C/div\u003E\u003Cscript type=\u0022module\u0022 src=\u0022/src/main.jsx?t=1793216316522\u0022\u003E\u003C/script\u003E\u003C/body\u003E\n\u003C/html\u003E\n",
+        "durationMs": 24
+      },
+      {
+        "name": "rooms-route-serves",
+        "kind": "http-probe",
+        "verificationMethod": "http-status",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": null,
+        "outputSample": "HTTP 200\n\u003C!doctype html\u003E\n\u003Chtml lang=\u0022en\u0022\u003E\n  \u003Chead\u003E\n    \u003Cscript type=\u0022module\u0022\u003Eimport { injectIntoGlobalHook } from \u0022/@react-refresh\u0022;\ninjectIntoGlobalHook(window);\nwindow.$RefreshReg$ = () =\u003E {};\nwindow.$RefreshSig$ = () =\u003E (type) =\u003E type;\u003C/script\u003E\n\n    \u003Cscript type=\u0022module\u0022 src=\u0022/@vite/client\u0022\u003E\u003C/script\u003E\n\n    \u003Cmeta charset=\u0022UTF-8\u0022 /\u003E\n    \u003Cmeta name=\u0022viewport\u0022 content=\u0022width=device-width, initial-scale=1.0\u0022 /\u003E\n    \u003Cmeta name=\u0022theme-color\u0022 content=\u0022#07111d\u0022 /\u003E\n    \u003Cmeta name=\u0022description\u0022 content=\u0022Royal Palace Hotel \u2014 luxury stays, dining and hospitality management.\u0022 /\u003E\n    \u003Ctitle\u003ERoyal Palace Hotel\u003C/title\u003E\n  \u003C/head\u003E\n  \u003Cbody\u003E\u003Cdiv id=\u0022root\u0022\u003E\u003C/div\u003E\u003Cscript type=\u0022module\u0022 src=\u0022/src/main.jsx?t=1793216316522\u0022\u003E\u003C/script\u003E\u003C/body\u003E\n\u003C/html\u003E\n",
+        "durationMs": 29
+      }
+    ],
+    "executions": [
+      {
+        "source": "devServer",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "args": [
+          "run",
+          "dev"
+        ],
+        "cwd": "C:\\Users\\Odaa\\Desktop\\projects\\royal-palace-hotel-frontend",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32",
+        "nodeExecutable": "C:\\Program Files\\nodejs\\node.EXE",
+        "nodeVersion": "v24.13.1",
+        "packageManager": "npm",
+        "packageManagerExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "packageManagerVersion": "11.8.0",
+        "cleanup": {
+          "RootProcessId": 9672,
+          "Completed": true,
+          "ProcessesObserved": 12,
+          "ProcessesTerminated": 6,
+          "Failure": null
+        }
+      },
+      {
+        "source": "production-build",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "args": [
+          "run",
+          "build"
+        ],
+        "cwd": "C:\\Users\\Odaa\\Desktop\\projects\\royal-palace-hotel-frontend",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32",
+        "nodeExecutable": "C:\\Program Files\\nodejs\\node.EXE",
+        "nodeVersion": "v24.13.1",
+        "packageManager": "npm",
+        "packageManagerExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "packageManagerVersion": "11.8.0",
+        "cleanup": {
+          "RootProcessId": 15300,
+          "Completed": true,
+          "ProcessesObserved": 12,
+          "ProcessesTerminated": 0,
+          "Failure": null
+        }
+      },
+      {
+        "source": "dev-server-serves-home",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "args": [
+          "run",
+          "dev"
+        ],
+        "cwd": "C:\\Users\\Odaa\\Desktop\\projects\\royal-palace-hotel-frontend",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32",
+        "nodeExecutable": "C:\\Program Files\\nodejs\\node.EXE",
+        "nodeVersion": "v24.13.1",
+        "packageManager": "npm",
+        "packageManagerExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "packageManagerVersion": "11.8.0",
+        "cleanup": {
+          "RootProcessId": 6712,
+          "Completed": true,
+          "ProcessesObserved": 2,
+          "ProcessesTerminated": 2,
+          "Failure": null
+        }
+      },
+      {
+        "source": "about-route-serves",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "args": [
+          "run",
+          "dev"
+        ],
+        "cwd": "C:\\Users\\Odaa\\Desktop\\projects\\royal-palace-hotel-frontend",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32",
+        "nodeExecutable": "C:\\Program Files\\nodejs\\node.EXE",
+        "nodeVersion": "v24.13.1",
+        "packageManager": "npm",
+        "packageManagerExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "packageManagerVersion": "11.8.0",
+        "cleanup": {
+          "RootProcessId": 15004,
+          "Completed": true,
+          "ProcessesObserved": 2,
+          "ProcessesTerminated": 2,
+          "Failure": null
+        }
+      },
+      {
+        "source": "rooms-route-serves",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "args": [
+          "run",
+          "dev"
+        ],
+        "cwd": "C:\\Users\\Odaa\\Desktop\\projects\\royal-palace-hotel-frontend",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32",
+        "nodeExecutable": "C:\\Program Files\\nodejs\\node.EXE",
+        "nodeVersion": "v24.13.1",
+        "packageManager": "npm",
+        "packageManagerExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+        "packageManagerVersion": "11.8.0",
+        "cleanup": {
+          "RootProcessId": 7116,
+          "Completed": true,
+          "ProcessesObserved": 2,
+          "ProcessesTerminated": 2,
+          "Failure": null
+        }
+      }
+    ]
+  }
+}

@@ -27,33 +27,35 @@ import Profile from "./pages/admin/Profile.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
 export default function App() {
-  return <Routes>
-    <Route element={<PublicLayout />}>
-      <Route path="/" element={<Home />} />
-      <Route path="/rooms" element={<Rooms />} />
-      <Route path="/rooms/:id" element={<RoomDetails />} />
-      <Route path="/dining" element={<Dining />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/amenities" element={<Amenities />} />
-      <Route path="/gallery" element={<Gallery />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/booking" element={<Booking />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-    </Route>
-    <Route path="/admin" element={<AdminLayout />}>
-      <Route index element={<Dashboard />} />
-      <Route path="bookings" element={<Bookings />} />
-      <Route path="rooms" element={<RoomManagement />} />
-      <Route path="guests" element={<Guests />} />
-      <Route path="check-in-out" element={<CheckInOut />} />
-      <Route path="housekeeping" element={<Housekeeping />} />
-      <Route path="payments" element={<Payments />} />
-      <Route path="reports" element={<Reports />} />
-      <Route path="settings" element={<Settings />} />
-      <Route path="users" element={<Users />} />
-      <Route path="profile" element={<Profile />} />
-    </Route>
-    <Route path="*" element={<NotFound />} />
-  </Routes>;
+  return (
+    <Routes>
+      <Route element={<PublicLayout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/rooms" element={<Rooms />} />
+        <Route path="/rooms/:id" element={<RoomDetails />} />
+        <Route path="/dining" element={<Dining />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/amenities" element={<Amenities />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/booking" element={<Booking />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Route>
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="bookings" element={<Bookings />} />
+        <Route path="rooms" element={<RoomManagement />} />
+        <Route path="guests" element={<Guests />} />
+        <Route path="check-in-out" element={<CheckInOut />} />
+        <Route path="housekeeping" element={<Housekeeping />} />
+        <Route path="payments" element={<Payments />} />
+        <Route path="reports" element={<Reports />} />
+        <Route path="settings" element={<Settings />} />
+        <Route path="users" element={<Users />} />
+        <Route path="profile" element={<Profile />} />
+      </Route>
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
 }
