@@ -1,0 +1,4 @@
+import React from "react";
+import { CircleUserRound } from "lucide-react";
+import AdminPageHeader from "../../components/AdminPageHeader.jsx";
+export default function Profile(){return <><AdminPageHeader title="My profile" description="Manage your personal account details."/><section className="panel profile-panel"><div className="profile-avatar"><CircleUserRound size={52}/></div><div><h2>Admin User</h2><p>Administrator · Royal Palace Hotel</p></div><form className="settings-form" onSubmit={e=>{e.preventDefault();alert("Demo profile only. Connect to your backend to save changes.");}}><div className="form-two"><label>Full name<input defaultValue="Admin User"/></label><label>Email address<input type="email" defaultValue="admin@royalpalace.example"/></label><label>Phone number<input defaultValue="+251 900 123 456"/></label><label>Role<input defaultValue="Administrator" disabled/></label></div><button className="btn btn-gold">Save profile</button></form></section></>}
