@@ -345,7 +345,8 @@
     grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
     align-items: center;
     gap: clamp(40px, 6vw, 88px);
-    max-width: 1280px;
+    width: min(1680px, 86vw);
+    max-width: none;
     margin: 0 auto;
     padding: 96px 7%;
   }
@@ -450,6 +451,8 @@
     gap: 11px;
   }
   .home-preview-section {
+    width: min(1680px, 86vw);
+    max-width: none;
     padding-top: 88px;
     padding-bottom: 88px;
   }
@@ -489,6 +492,9 @@
     grid-template-columns: 1fr 1fr;
     min-height: 465px;
     background: #eee9de;
+    width: min(1680px, 86vw);
+    max-width: none;
+    margin: 0 auto;
   }
   .home-preview-band-image {
     min-height: 420px;
@@ -586,13 +592,16 @@
     background: var(--ink);
     color: #fff;
     padding: 88px 7%;
+    width: min(1680px, 86vw);
+    max-width: none;
+    margin: 0 auto;
   }
   .home-offers-inner {
     display: grid;
     grid-template-columns: 1.1fr 1fr auto;
     align-items: center;
     gap: 55px;
-    max-width: 1240px;
+    max-width: none;
     margin: auto;
   }
   .home-offers-inner h2 {
@@ -636,6 +645,8 @@
     line-height: 1.7;
   }
   .home-contact-preview {
+    width: min(1680px, 86vw);
+    max-width: none;
     padding-top: 88px;
     padding-bottom: 88px;
   }
@@ -665,9 +676,43 @@
   .home-contact-details svg {
     color: var(--gold-dark);
   }
-  .public-section {
+  .public-section,
+  .internal-section {
     max-width: 1440px;
     margin: auto;
+  }
+  /* Keep every homepage section on the same frame as the Dining preview. */
+  .public-section.home-preview-section,
+  .public-section.home-contact-preview {
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+    padding-left: 7vw;
+    padding-right: 7vw;
+  }
+  .public-shell > main > .quote-section {
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+  }
+  .internal-page-container {
+    width: 100%;
+    max-width: 1440px;
+    margin: auto;
+    padding: 0 7%;
+  }
+  .internal-section.detail-layout,
+  .internal-section.contact-layout,
+  .internal-section.booking-page {
+    max-width: 1440px;
+  }
+  .about-page-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    align-items: center;
+    gap: clamp(40px, 6vw, 88px);
   }
   .section-heading {
     text-align: center;
@@ -893,7 +938,7 @@
     color: #d5b56e;
   }
   .page-hero {
-    padding: 80px 7% 35px;
+    padding: 80px 0 35px;
     background: linear-gradient(135deg, #f8f5ee, #eee7d8);
   }
   .small-hero {
@@ -904,6 +949,8 @@
   }
   .small-hero .section-heading {
     margin: 0;
+    text-align: left;
+    max-width: 760px;
   }
   .filter-row {
     display: flex;
@@ -2082,6 +2129,7 @@
       padding: 60px 5%;
     }
     .about-home-section {
+      width: 90vw;
       grid-template-columns: 1fr;
       gap: 42px;
       padding: 72px 7%;
@@ -2096,6 +2144,12 @@
     }
     .preview-heading {
       display: block;
+    }
+    .home-preview-section,
+    .home-preview-band,
+    .home-offers-section,
+    .home-contact-preview {
+      width: 90vw;
     }
     .preview-heading > p {
       margin-top: 15px;
@@ -2153,7 +2207,10 @@
     }
     .small-hero {
       min-height: 220px;
-      padding: 50px 6%;
+      padding: 50px 0;
+    }
+    .internal-page-container {
+      padding: 0 6%;
     }
     .section-heading h1 {
       font-size: 34px;
