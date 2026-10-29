@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { Crown, Menu, X } from "lucide-react";
+import Footer from "./Footer.jsx";
 
 const nav = [
   ["Home", "/", "home-hero"],
@@ -64,6 +65,6 @@ export default function PublicLayout() {
       <Link className="btn btn-gold nav-book" to="/booking">Book Now</Link>
     </header>
     <main><Outlet /></main>
-    <footer className="public-footer"><div className="brand"><Crown size={25}/><span><b>ROYAL PALACE</b><small>HOTEL & RESORT</small></span></div><p>Exceptional stays. Timeless hospitality.</p><span>© 2026 Royal Palace Hotel</span><Link to="/admin">Staff portal</Link></footer>
+    <Footer />
   </div>;
 }
