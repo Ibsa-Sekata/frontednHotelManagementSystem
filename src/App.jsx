@@ -1,4 +1,5 @@
 import React from "react";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import { Routes, Route, Navigate } from "react-router-dom";
 import PublicLayout from "./components/PublicLayout.jsx";
 import AdminLayout from "./components/AdminLayout.jsx";
@@ -42,7 +43,16 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Route>
-      <Route path="/admin" element={<AdminLayout />}>
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute
+            roles={["ADMIN", "MANAGER", "RECEPTIONIST", "HOUSEKEEPING"]}
+          >
+            <AdminLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route index element={<Dashboard />} />
         <Route path="bookings" element={<Bookings />} />
         <Route path="rooms" element={<RoomManagement />} />

@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+.DS_Store
+.env.example
+# but do NOT ignore the server folder itself
+!server/
+server/node_modules/
+server/.env
+server/uploads/*
+!server/uploads/.gitkeep
