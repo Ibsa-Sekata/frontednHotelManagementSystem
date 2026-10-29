@@ -1,18 +1,14 @@
 import React from "react";
 import {
   ArrowRight,
-  ConciergeBell,
   Mail,
   MapPin,
   Phone,
-  Utensils,
-  Waves,
-  Wifi,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import RoomCard from "./RoomCard.jsx";
 import AboutSection from "./AboutSection.jsx";
-import { rooms } from "../data.js";
+import { amenities, rooms } from "../data.js";
 import Reveal from "./Reveal.jsx";
 
 const galleryImages = [
@@ -23,12 +19,7 @@ const galleryImages = [
   ["Designed to unwind", "photo-1566665797739-1674de7a421a"],
 ];
 
-const amenities = [
-  [Waves, "Wellness & pool", "Restorative treatments and refreshing swims."],
-  [Utensils, "Signature dining", "Seasonal ingredients and memorable meals."],
-  [Wifi, "High-speed Wi-Fi", "Stay connected throughout your visit."],
-  [ConciergeBell, "24-hour concierge", "Thoughtful assistance whenever you need it."],
-];
+const amenityFallbackImage = "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1000&q=85";
 
 export default function HomePreviews() {
   return (
@@ -64,11 +55,29 @@ export default function HomePreviews() {
           <p>Everything you need for restorative days, productive stays, and effortless comfort.</p>
         </Reveal>
         <div className="home-amenity-grid">
-          {amenities.map(([Icon, title, description]) => (
-            <Reveal as="article" className="home-amenity-card" key={title} delay={amenities.indexOf(amenities.find((item) => item[1] === title)) * 80}>
-              <span className="home-amenity-icon"><Icon size={22} /></span>
-              <h3>{title}</h3>
-              <p>{description}</p>
+          {amenities.map(({ title, description, image }, index) => (
+            <Reveal
+              as="article"
+              className="home-amenity-card"
+              key={title}
+              delay={index * 80}
+            >
+              <img
+                className="home-amenity-image"
+                src={image}
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+                onError={(event) => {
+                  if (event.currentTarget.src !== amenityFallbackImage) {
+                    event.currentTarget.src = amenityFallbackImage;
+                  }
+                }}
+              />
+              <div className="home-amenity-content">
+                <h3>{title}</h3>
+                <p>{description}</p>
+              </div>
             </Reveal>
           ))}
         </div>

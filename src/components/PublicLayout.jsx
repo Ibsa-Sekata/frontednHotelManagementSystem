@@ -34,17 +34,26 @@ export default function PublicLayout() {
     }
 
     const sections = nav.map(([, , sectionId]) => document.getElementById(sectionId)).filter(Boolean);
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => Math.abs(a.boundingClientRect.top) - Math.abs(b.boundingClientRect.top));
-        if (visible[0]) setActiveSection(visible[0].target.id);
-      },
-      { rootMargin: "-18% 0px -62% 0px", threshold: [0, 0.15, 0.35] },
-    );
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+    let frame = 0;
+    const updateActiveSection = () => {
+      frame = 0;
+      const marker = window.scrollY + 110;
+      const current = sections
+        .filter((section) => section.offsetTop <= marker)
+        .sort((a, b) => b.offsetTop - a.offsetTop)[0];
+      setActiveSection(current?.id || "home-hero");
+    };
+    const handleScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateActiveSection);
+    };
+    updateActiveSection();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, [location.pathname]);
 
   const handleNavigation = (event, path, sectionId) => {
