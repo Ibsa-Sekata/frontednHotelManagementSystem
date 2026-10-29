@@ -57,6 +57,11 @@
     position: sticky;
     top: 0;
     z-index: 20;
+    transition: box-shadow 0.35s ease, background 0.35s ease;
+  }
+  .public-nav.is-scrolled {
+    background: rgba(251, 250, 247, 0.94);
+    box-shadow: 0 8px 26px rgba(7, 17, 29, 0.09);
   }
   .brand {
     display: flex;
@@ -89,9 +94,26 @@
     gap: clamp(12px, 2vw, 30px);
   }
   .public-links a {
+    position: relative;
     font-size: 11px;
     color: #3e4146;
     transition: color 0.2s;
+  }
+  .public-links a::after {
+    position: absolute;
+    right: 0;
+    bottom: -8px;
+    left: 0;
+    height: 1px;
+    background: var(--gold);
+    content: "";
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.25s ease;
+  }
+  .public-links a:hover::after,
+  .public-links a.active::after {
+    transform: scaleX(1);
   }
   .public-links a:hover,
   .public-links a.active {
@@ -158,7 +180,48 @@
     color: #fff;
     padding: 65px 8%;
   }
+  .hero-title {
+    display: grid;
+    overflow: hidden;
+  }
+  .hero-title .reveal {
+    display: block;
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.8s ease var(--reveal-delay, 0ms),
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .hero .hero-video,
+  .hero .hero-image {
+    animation: hero-zoom 16s ease-out both;
+  }
+  @keyframes hero-zoom {
+    from { transform: scale(1.02); }
+    to { transform: scale(1.08); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
   .hero-image,
+  .hero-video,
   .hero-shade {
     position: absolute;
     inset: 0;
@@ -168,6 +231,14 @@
     background-size: cover;
     background-position: center 55%;
     transform: scale(1.02);
+    z-index: 0;
+  }
+  .hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 1;
   }
   .hero-shade {
     background:
@@ -178,10 +249,11 @@
         rgba(4, 11, 18, 0.08) 100%
       ),
       linear-gradient(0deg, rgba(4, 11, 18, 0.3), transparent 45%);
+    z-index: 2;
   }
   .hero-content {
     position: relative;
-    z-index: 1;
+    z-index: 3;
     max-width: 550px;
   }
   .eyebrow {
@@ -251,6 +323,7 @@
     background: rgba(7, 17, 29, 0.72);
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(12px);
+    z-index: 3;
   }
   .crown-mark {
     font-size: 26px;

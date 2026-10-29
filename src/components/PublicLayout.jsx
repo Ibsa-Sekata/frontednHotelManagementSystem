@@ -16,8 +16,16 @@ const nav = [
 export default function PublicLayout() {
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home-hero");
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 12);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     if (location.pathname !== "/") {
@@ -53,7 +61,7 @@ export default function PublicLayout() {
   };
 
   return <div className="public-shell">
-    <header className="public-nav">
+    <header className={`public-nav${scrolled ? " is-scrolled" : ""}`}>
       <Link className="brand" to="/"><span className="brand-mark"><Crown size={24}/></span><span><b>ROYAL PALACE</b><small>HOTEL & RESORT</small></span></Link>
       <button className="mobile-menu" onClick={() => setOpen(!open)} aria-label="Toggle menu" aria-expanded={open}>{open ? <X/> : <Menu/>}</button>
       <nav className={open ? "public-links open" : "public-links"} aria-label="Primary navigation">

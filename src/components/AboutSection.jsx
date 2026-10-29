@@ -1,6 +1,7 @@
 import React from "react";
 import { ArrowRight, Check } from "lucide-react";
 import { Link } from "react-router-dom";
+import Reveal from "./Reveal.jsx";
 
 const highlights = [
   "Exceptional Hospitality",
@@ -11,14 +12,14 @@ const highlights = [
 export default function AboutSection({ id = "about-home", compact = false }) {
   return (
     <section id={id} className={`about-home-section${compact ? " about-home-section-compact" : ""}`} aria-labelledby="about-home-title">
-      <div className="about-home-image">
+      <Reveal className="about-home-image">
         <img
           src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1400&q=85"
           alt="Grand Royal Palace Hotel lobby with elegant furniture and warm lighting"
           loading="lazy"
         />
-      </div>
-      <div className="about-home-content">
+      </Reveal>
+      <Reveal className="about-home-content" delay={120}>
         <span className="eyebrow">ABOUT ROYAL PALACE</span>
         <h2 id="about-home-title">
           Where Luxury Meets <em>Exceptional Hospitality</em>
@@ -65,7 +66,7 @@ export default function AboutSection({ id = "about-home", compact = false }) {
             Contact Us
           </Link>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }
