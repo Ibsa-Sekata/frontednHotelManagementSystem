@@ -1,5 +1,45 @@
-import React from "react";
-import { Plus } from "lucide-react";
+﻿import React, { useEffect, useState } from "react";
 import AdminPageHeader from "../../components/AdminPageHeader.jsx";
-const guests=[["AK","Abebe Kebede","abebe@example.com","12 May 2025","VIP"],["MA","Mekdes Alemu","mekdes@example.com","13 May 2025","Returning"],["YT","Yonas Tesfaye","yonas@example.com","14 May 2025","New"],["SA","Sara Ahmed","sara@example.com","15 May 2025","VIP"],["DK","Daniel Kim","daniel@example.com","16 May 2025","Returning"]];
-export default function Guests(){return <><AdminPageHeader title="Guest directory" description="A complete view of guest profiles and stay history." action={<button className="btn btn-gold" onClick={()=>alert("Connect guest creation to your backend.")}><Plus size={16}/> Add guest</button>}/><section className="panel"><div className="table-wrap"><table><thead><tr><th>Guest</th><th>Email address</th><th>Last stay</th><th>Guest type</th><th>Actions</th></tr></thead><tbody>{guests.map(g=><tr key={g[1]}><td><span className="guest-cell"><i>{g[0]}</i><b>{g[1]}</b></span></td><td>{g[2]}</td><td>{g[3]}</td><td><span className="status status-confirmed">{g[4]}</span></td><td><button className="table-action" onClick={()=>alert(`${g[1]} is demo data.`)}>•••</button></td></tr>)}</tbody></table></div></section></>}
+import { guestsApi } from "../../api/guestsApi.js";
+
+export default function Guests() {
+  const [guests, setGuests] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    guestsApi.list()
+      .then(res => setGuests(res.data || []))
+      .catch(e => setError(e.message))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const initials = (n) => n.split(" ").map(x=>x[0]).slice(0,2).join("").toUpperCase();
+
+  return (
+    <>
+      <AdminPageHeader title="Guest directory" description="All guests stored in your database."/>
+      <section className="panel">
+        {error && <p style={{ color: "#c05d5d", padding: "0 18px" }}>{error}</p>}
+        <div className="table-wrap">
+          <table>
+            <thead><tr><th>Guest</th><th>Email</th><th>Phone</th><th>Type</th><th>Joined</th></tr></thead>
+            <tbody>
+              {loading ? <tr><td colSpan="5" className="empty-state">Loading…</td></tr>
+                : guests.length === 0 ? <tr><td colSpan="5" className="empty-state">No guests yet. They appear automatically when bookings are made.</td></tr>
+                : guests.map(g => (
+                  <tr key={g.id}>
+                    <td><span className="guest-cell"><i>{initials(g.fullName)}</i><b>{g.fullName}</b></span></td>
+                    <td>{g.email || "—"}</td>
+                    <td>{g.phone || "—"}</td>
+                    <td><span className="status status-confirmed">{g.guestType}</span></td>
+                    <td>{new Date(g.createdAt).toLocaleDateString()}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </>
+  );
+}

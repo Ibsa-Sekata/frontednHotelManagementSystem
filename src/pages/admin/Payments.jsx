@@ -1,5 +1,120 @@
-import React from "react";
-import { Download } from "lucide-react";
+﻿import React, { useEffect, useState } from "react";
+import { Download, Plus, RotateCw } from "lucide-react";
 import AdminPageHeader from "../../components/AdminPageHeader.jsx";
-const rows=[["INV-1001","BK-1001","Abebe Kebede","ETB 19,500","Paid","12/05/2025"],["INV-1002","BK-1002","Mekdes Alemu","ETB 25,000","Paid","13/05/2025"],["INV-1003","BK-1003","Yonas Tesfaye","ETB 13,000","Partial","14/05/2025"],["INV-1004","BK-1004","Sara Ahmed","ETB 22,500","Paid","15/05/2025"],["INV-1005","BK-1005","Daniel Kim","ETB 18,000","Unpaid","16/05/2025"]];
-export default function Payments(){return <><AdminPageHeader title="Payments & invoices" description="Track charges, payment status and invoice records." action={<button className="btn btn-light" onClick={()=>window.print()}><Download size={15}/> Export</button>}/><div className="stat-grid compact-stats"><div className="stat-card"><p>Collected</p><strong>ETB 1.8M</strong><small>This month</small></div><div className="stat-card"><p>Pending</p><strong>ETB 84K</strong><small>12 invoices</small></div><div className="stat-card"><p>Refunds</p><strong>ETB 12K</strong><small>2 requests</small></div><div className="stat-card"><p>Collection rate</p><strong>94.6%</strong><small>+2.1% this month</small></div></div><section className="panel"><div className="table-wrap"><table><thead><tr><th>Invoice #</th><th>Booking ID</th><th>Guest</th><th>Amount</th><th>Status</th><th>Invoice date</th><th>Action</th></tr></thead><tbody>{rows.map(r=><tr key={r[0]}>{r.map((v,i)=><td key={i}>{i===4?<span className={`status status-${v.toLowerCase()}`}>{v}</span>:v}</td>)}<td><button className="table-action" onClick={()=>alert("Demo invoice. Connect PDF generation and payment provider.")}>•••</button></td></tr>)}</tbody></table></div></section></>}
+import { paymentsApi } from "../../api/paymentsApi.js";
+import { bookingsApi } from "../../api/bookingsApi.js";
+
+export default function Payments() {
+  const [payments, setPayments] = useState([]);
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [showForm, setShowForm] = useState(false);
+  const [form, setForm] = useState({ bookingId: "", method: "CASH", status: "PAID" });
+
+  const load = async () => {
+    setLoading(true); setError("");
+    try {
+      const [p, b] = await Promise.all([paymentsApi.list(), bookingsApi.list({ limit: 100 })]);
+      setPayments(p.data || []); setBookings(b.data || []);
+    } catch (e) { setError(e.message); }
+    finally { setLoading(false); }
+  };
+
+  useEffect(() => { load(); }, []);
+
+  const createPayment = async (e) => {
+    e.preventDefault();
+    if (!form.bookingId) return;
+    try {
+      await paymentsApi.create({ ...form, bookingId: Number(form.bookingId) });
+      setShowForm(false);
+      setForm({ bookingId: "", method: "CASH", status: "PAID" });
+      await load();
+    } catch (e) { alert(e.message); }
+  };
+
+  const paid = payments.filter(p => p.status === "PAID");
+  const unpaid = payments.filter(p => p.status !== "PAID");
+  const totalPaid = paid.reduce((s, p) => s + Number(p.amount), 0);
+  const totalUnpaid = unpaid.reduce((s, p) => s + Number(p.amount), 0);
+
+  const viewInvoice = (id) => {
+    const url = paymentsApi.invoiceUrl(id);
+    const token = localStorage.getItem("token");
+    fetch(url, { headers: { Authorization: `Bearer ${token}` } })
+      .then(r => r.text())
+      .then(html => {
+        const w = window.open("", "_blank");
+        w.document.write(html);
+        w.document.close();
+      })
+      .catch(e => alert(e.message));
+  };
+
+  return (
+    <>
+      <AdminPageHeader
+        title="Payments & invoices"
+        description="Live payment records from your database."
+        action={
+          <div style={{ display: "flex", gap: 8 }}>
+            <button className="btn btn-light" onClick={load}><RotateCw size={15}/> Refresh</button>
+            <button className="btn btn-gold" onClick={() => setShowForm(!showForm)}><Plus size={16}/> New payment</button>
+          </div>
+        }
+      />
+      {error && <p style={{ color: "#c05d5d" }}>{error}</p>}
+
+      <div className="stat-grid compact-stats">
+        <div className="stat-card"><p>Collected</p><strong>ETB {totalPaid.toLocaleString()}</strong><small>{paid.length} payments</small></div>
+        <div className="stat-card"><p>Pending</p><strong>ETB {totalUnpaid.toLocaleString()}</strong><small>{unpaid.length} unpaid</small></div>
+        <div className="stat-card"><p>Total invoices</p><strong>{payments.length}</strong><small>All records</small></div>
+        <div className="stat-card"><p>Collection rate</p><strong>{payments.length ? Math.round((paid.length/payments.length)*100) : 0}%</strong><small>Paid / total</small></div>
+      </div>
+
+      {showForm && (
+        <section className="panel" style={{ marginBottom: 16 }}>
+          <div className="panel-heading"><div><h2>Create payment</h2><p>Record a payment for a booking.</p></div></div>
+          <form onSubmit={createPayment} style={{ padding: "12px 18px", display: "grid", gap: 10, gridTemplateColumns: "2fr 1fr 1fr auto" }}>
+            <select value={form.bookingId} onChange={e=>setForm({...form, bookingId: e.target.value})} required>
+              <option value="">Choose booking…</option>
+              {bookings.map(b => <option key={b.id} value={b.id}>{b.bookingNumber} — {b.guest?.fullName} (ETB {Number(b.totalAmount).toLocaleString()})</option>)}
+            </select>
+            <select value={form.method} onChange={e=>setForm({...form, method: e.target.value})}>
+              <option>CASH</option><option>CARD</option><option>BANK_TRANSFER</option><option>MOBILE_MONEY</option>
+            </select>
+            <select value={form.status} onChange={e=>setForm({...form, status: e.target.value})}>
+              <option>PAID</option><option>PARTIAL</option><option>UNPAID</option>
+            </select>
+            <button className="btn btn-gold">Save</button>
+          </form>
+        </section>
+      )}
+
+      <section className="panel">
+        <div className="table-wrap">
+          <table>
+            <thead><tr><th>Invoice #</th><th>Booking</th><th>Guest</th><th>Amount</th><th>Method</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>
+            <tbody>
+              {loading ? <tr><td colSpan="8" className="empty-state">Loading…</td></tr>
+                : payments.length === 0 ? <tr><td colSpan="8" className="empty-state">No payments recorded yet.</td></tr>
+                : payments.map(p => (
+                  <tr key={p.id}>
+                    <td className="gold-text">{p.invoiceNumber}</td>
+                    <td>{p.booking?.bookingNumber}</td>
+                    <td>{p.booking?.guest?.fullName}</td>
+                    <td>ETB {Number(p.amount).toLocaleString()}</td>
+                    <td>{p.method}</td>
+                    <td><span className={`status status-${p.status.toLowerCase()}`}>{p.status}</span></td>
+                    <td>{new Date(p.createdAt).toLocaleDateString()}</td>
+                    <td><button className="btn btn-small btn-light" onClick={() => viewInvoice(p.id)}><Download size={13}/> Invoice</button></td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </>
+  );
+}

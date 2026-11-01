@@ -26,6 +26,7 @@ import Settings from "./pages/admin/Settings.jsx";
 import Users from "./pages/admin/Users.jsx";
 import Profile from "./pages/admin/Profile.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import Messages from "./pages/admin/Messages.jsx";
 
 export default function App() {
   return (
@@ -53,6 +54,7 @@ export default function App() {
           </ProtectedRoute>
         }
       >
+        <Route path="messages" element={<Messages />} />
         <Route index element={<Dashboard />} />
         <Route path="bookings" element={<Bookings />} />
         <Route path="rooms" element={<RoomManagement />} />
