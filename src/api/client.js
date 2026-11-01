@@ -1,20 +1,30 @@
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api/v1";
+﻿const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api/v1";
 
-export async function apiRequest(path, { method = "GET", body, token } = {}) {
-    const headers = { "Content-Type": "application/json" };
-    if (token) headers.Authorization = `Bearer ${token}`;
-
-    const res = await fetch(`${BASE_URL}${path}`, {
-        method,
-        headers,
-        body: body ? JSON.stringify(body) : undefined,
+export async function apiRequest(path, { method = "GET", body, token, query } = {}) {
+  const url = new URL(`${BASE_URL}${path}`);
+  if (query) {
+    Object.entries(query).forEach(([k, v]) => {
+      if (v !== undefined && v !== null && v !== "") url.searchParams.set(k, v);
     });
+  }
 
-    const json = await res.json().catch(() => ({}));
+  const headers = { "Content-Type": "application/json" };
+  const authToken = token || localStorage.getItem("token");
+  if (authToken) headers.Authorization = `Bearer ${authToken}`;
 
-    if (!res.ok) {
-        const message = json?.error?.message || `Request failed (${res.status})`;
-        throw new Error(message);
+  const res = await fetch(url.toString(), {
+    method,
+    headers,
+    body: body ? JSON.stringify(body) : undefined,
+  });
+
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    if (res.status === 401) {
+      localStorage.removeItem("token");
+      if (!location.pathname.startsWith("/login")) location.href = "/login";
     }
-    return json;
+    throw new Error(json?.error?.message || `Request failed (${res.status})`);
+  }
+  return json;
 }
